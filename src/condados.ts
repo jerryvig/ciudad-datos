@@ -1,7 +1,6 @@
 // this is just a rudimentary http2 client example in TypeScript.
 import * as http from 'http';
-
-
+import * as zlib from 'zlib';
 
 function main(): void {
     const request_options: http.RequestOptions = {
@@ -13,23 +12,26 @@ function main(): void {
         }
     };
 
-    http.get(request_options, (response) => {
-        const { statusCode } = response;
-
-        if (statusCode !== 200) {
-            console.error(`Request failed with status code ${statusCode}.`);
+    http.get(request_options, (response: http.IncomingMessage) => {
+        if (response.statusCode !== 200) {
+            console.error(`Request failed with status code ${response.statusCode}.`);
             response.resume();
             return;
         }
 
+        const gunzip: zlib.Gunzip = zlib.createGunzip();
+        response.pipe(gunzip);
+
         let data: string = '';
-        response.on('data', (chunk) => {
-            data += chunk;
+        gunzip.on('data', (chunk: any) => {
+            data += chunk.toString();
         });
 
-        response.on('end', () => {
-            console.log(data);
-            console.log('===== RESPONSE HEADERS ======');
+        gunzip.on('end', () => {
+            //console.log(data);
+
+
+            // console.log('===== RESPONSE HEADERS ======');
             console.log(response.headers);
         });
     });
