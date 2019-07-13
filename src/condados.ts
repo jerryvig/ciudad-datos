@@ -24,6 +24,11 @@ const county_list: County[] = [
     {name: 'Storey County', state: 'NV'},
     {name: 'Washoe County', state: 'NV'},
     {name: 'White Pine County', state: 'NV'},
+
+    {name: 'Bernalillo County', state: 'NM'},
+    {name: 'Dona Ana County', state: 'NM'},
+    {name: 'Santa Fe County', state: 'NM'},
+    {name: 'San Juan County', state: 'NM'}
 ];
 
 function get_county_page(county: County): void {
