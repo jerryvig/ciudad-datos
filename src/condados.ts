@@ -1,5 +1,8 @@
+import * as fs from 'fs';
 import * as http from 'http';
 import * as zlib from 'zlib';
+
+const COUNTY_FILE_PATH: fs.PathLike = 'data/county_list.csv';
 
 interface County {
     name: string;
@@ -71,6 +74,16 @@ function get_county_page(county: County): void {
 
 function main(args?: string[]): void {
     if (args === undefined || args.length < 3) {
+        fs.readFile(COUNTY_FILE_PATH, (err, buffer: Buffer | string) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            console.log(buffer.toString());
+        });
+
+
+        return;
         county_list.forEach((county, index) => {
             setTimeout(get_county_page, 1000 * index, county);
         });
