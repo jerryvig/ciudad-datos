@@ -82,9 +82,7 @@ function main(args?: string[]): void {
             console.log(buffer.toString());
         });
 
-
-        return;
-        county_list.forEach((county, index) => {
+        county_list.forEach((county: County, index: number) => {
             setTimeout(get_county_page, 1000 * index, county);
         });
     }
