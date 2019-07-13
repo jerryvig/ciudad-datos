@@ -65,9 +65,11 @@ function get_county_page(county: County): void {
 }
 
 function main(args?: string[]): void {
-    county_list.forEach((county, index) => {
-        setTimeout(get_county_page, 1000 * index, county);
-    });
+    if (args === undefined || args.length < 3) {
+        county_list.forEach((county, index) => {
+            setTimeout(get_county_page, 1000 * index, county);
+        });
+    }
 }
 
-main();
+main(process.argv);
