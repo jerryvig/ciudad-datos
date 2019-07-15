@@ -1,3 +1,4 @@
+import * as cheerio from 'cheerio';
 import * as fs from 'fs';
 import * as http from 'http';
 import * as zlib from 'zlib';
@@ -43,7 +44,12 @@ function get_county_page(county: County): void {
 
             gunzip.on('end', () => {
                 console.log('====== BODY CONTENT =====');
+                // we need to process the body content here.
                 console.log(data);
+
+                const $: CheerioStatic = cheerio.load(data);
+
+                if ($) {}
 
                 console.log('===== RESPONSE HEADERS ======');
                 console.log(response.headers);
