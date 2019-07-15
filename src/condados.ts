@@ -11,31 +11,6 @@ interface County {
 
 const county_list: County[] = [];
 
-/* const county_list: County[] = [
-    {name: 'Carson City', state: 'NV'},
-    {name: 'Churchill County', state: 'NV'},
-    {name: 'Clark County', state: 'NV'},
-    {name: 'Douglas County', state: 'NV'},
-    {name: 'Elko County', state: 'NV'},
-    {name: 'Esmeralda County', state: 'NV'},
-    {name: 'Eureka County', state: 'NV'},
-    {name: 'Humboldt County', state: 'NV'},
-    {name: 'Lander County', state: 'NV'},
-    {name: 'Lincoln County', state: 'NV'},
-    {name: 'Lyon County', state: 'NV'},
-    {name: 'Mineral County', state: 'NV'},
-    {name: 'Nye County', state: 'NV'},
-    {name: 'Pershing County', state: 'NV'},
-    {name: 'Storey County', state: 'NV'},
-    {name: 'Washoe County', state: 'NV'},
-    {name: 'White Pine County', state: 'NV'},
-
-    {name: 'Bernalillo County', state: 'NM'},
-    {name: 'Dona Ana County', state: 'NM'},
-    {name: 'Santa Fe County', state: 'NM'},
-    {name: 'San Juan County', state: 'NM'}
-]; */
-
 function get_county_page(county: County): void {
     const regex: RegExp = / /g;
     const county_name: string = county.name.replace(regex, '_');
@@ -81,6 +56,7 @@ function main(args?: string[]): void {
                 console.error(err);
                 return;
             }
+
             const buffer_data: string[] = buffer.toString().split('\n');
             for (const line of buffer_data) {
                 if (line) {
@@ -89,12 +65,11 @@ function main(args?: string[]): void {
                 }
             }
 
-            console.log(county_list);
-            process.exit(0);
-        });
-
-        county_list.forEach((county: County, index: number) => {
-            setTimeout(get_county_page, 1000 * index, county);
+            if (county_list.length > 0) {
+                county_list.forEach((county: County, index: number) => {
+                    setTimeout(get_county_page, 1000 * index, county);
+                });
+            }
         });
     }
 }
