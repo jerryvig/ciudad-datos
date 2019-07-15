@@ -9,7 +9,9 @@ interface County {
     state: string;
 }
 
-const county_list: County[] = [
+const county_list: County[] = [];
+
+/* const county_list: County[] = [
     {name: 'Carson City', state: 'NV'},
     {name: 'Churchill County', state: 'NV'},
     {name: 'Clark County', state: 'NV'},
@@ -32,7 +34,7 @@ const county_list: County[] = [
     {name: 'Dona Ana County', state: 'NM'},
     {name: 'Santa Fe County', state: 'NM'},
     {name: 'San Juan County', state: 'NM'}
-];
+]; */
 
 function get_county_page(county: County): void {
     const regex: RegExp = / /g;
@@ -79,7 +81,16 @@ function main(args?: string[]): void {
                 console.error(err);
                 return;
             }
-            console.log(buffer.toString());
+            const buffer_data: string[] = buffer.toString().split('\n');
+            for (const line of buffer_data) {
+                if (line) {
+                    const fields: string[] = line.split(',');
+                    county_list.push({name: fields[0], state: fields[1]});
+                }
+            }
+
+            console.log(county_list);
+            process.exit(0);
         });
 
         county_list.forEach((county: County, index: number) => {
