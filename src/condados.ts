@@ -32,20 +32,23 @@ function get_county_page(county: County): void {
             return;
         }
 
-        const gunzip: zlib.Gunzip = zlib.createGunzip();
-        response.pipe(gunzip);
+        if (response.headers['content-encoding'] === 'gzip') {
+            const gunzip: zlib.Gunzip = zlib.createGunzip();
+            response.pipe(gunzip);
 
-        let data: string = '';
-        gunzip.on('data', (chunk: any) => {
-            data += chunk.toString();
-        });
+            let data: string = '';
+            gunzip.on('data', (chunk: any) => {
+                data += chunk.toString();
+            });
 
-        gunzip.on('end', () => {
-            console.log('====== BODY CONTENT =====');
-            console.log(data);
-            console.log('===== RESPONSE HEADERS ======');
-            // console.log(response.headers);
-        });
+            gunzip.on('end', () => {
+                console.log('====== BODY CONTENT =====');
+                console.log(data);
+
+                console.log('===== RESPONSE HEADERS ======');
+                console.log(response.headers);
+            });
+        }
     });
 }
 
