@@ -44,7 +44,7 @@ function get_county_page(county: County): void {
             console.log('====== BODY CONTENT =====');
             console.log(data);
             console.log('===== RESPONSE HEADERS ======');
-            console.log(response.headers);
+            // console.log(response.headers);
         });
     });
 }
