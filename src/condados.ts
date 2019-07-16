@@ -49,7 +49,6 @@ function get_county_page(county: County): void {
                 const population_text: string = $('#population').text();
                 const population_string: string = population_text.split(':')[1].split(' ')[1];
                 const population: number = parseInt(population_string.replace(/,/g, ''));
-
                 console.log('population = ' + population);
 
                 const pop_density_lines: string[] = $('#population-density').text().split('\n');
@@ -60,10 +59,22 @@ function get_county_page(county: County): void {
                         console.log('land_area = ' + land_area);
                     } else if (line.startsWith('Population density:')) {
                         const pop_density_string: string = line.split(' ')[2];
-                        const pop_density: number = parseInt(pop_density_string);
+                        const pop_density: number = parseFloat(pop_density_string);
                         console.log(`pop_density = ${pop_density}`);
                     }
                 }
+
+                const median_age_part: string = $('#median-age').text().split(' ')[2];
+                const median_age: number = parseFloat(median_age_part.split(':')[1]);
+                console.log(`median age = ${median_age}`);
+
+                const population_by_sex_parts: string[] = $('#population-by-sex').text().split('(');
+                const male_population_string: string = population_by_sex_parts[0].split(' ')[1];
+                const male_population: number = parseInt(male_population_string.replace(/,/g, ''));
+                const female_population_string: string = population_by_sex_parts[1].split(' ')[1];
+                const female_population: number = parseInt(female_population_string.replace(/,/g, ''));
+                console.log(`male population = ${male_population}`);
+                console.log(`female population = ${female_population}`);
 
                 console.log('==================================');
             });
