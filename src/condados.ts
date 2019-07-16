@@ -76,6 +76,15 @@ function get_county_page(county: County): void {
                 console.log(`male population = ${male_population}`);
                 console.log(`female population = ${female_population}`);
 
+                const household_prices_lines: string[] = $('#household-prices').text().split('\n');
+                for (const line of household_prices_lines) {
+                    if (line.startsWith('Estimated median house or condo value in')) {
+                        const median_home_value_string: string = line.split(':')[1].split(' ')[1];
+                        const median_home_value: number = parseInt(median_home_value_string.replace(/,/g, '').replace(/\$/g, ''));
+                        console.log(`median home value 2016 = ${median_home_value}`);
+                    }
+                }
+
                 console.log('==================================');
             });
         }
