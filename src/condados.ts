@@ -43,16 +43,25 @@ function get_county_page(county: County): void {
             });
 
             gunzip.on('end', () => {
-                console.log('====== BODY CONTENT =====');
                 // we need to process the body content here.
-                console.log(data);
-
                 const $: CheerioStatic = cheerio.load(data);
 
-                if ($) {}
+                const population_text: string = $('#population').text();
+                const population_string: string = population_text.split(':')[1].split(' ')[1];
+                const population: number = parseInt(population_string.replace(/,/g, ''));
 
-                console.log('===== RESPONSE HEADERS ======');
-                console.log(response.headers);
+                console.log('population = ' + population);
+
+                const pop_density_lines: string[] = $('#population-density').text().split('\n');
+                for (const line of pop_density_lines) {
+                    if (line.startsWith('Land area:')) {
+                        const land_area_string: string = line.split(' ')[2];
+                        const land_area: number = parseInt(land_area_string);
+                        console.log('land_area = ' + land_area);
+                    }
+                }
+
+                console.log('==================================');
             });
         }
     });
