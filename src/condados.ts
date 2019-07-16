@@ -58,6 +58,10 @@ function get_county_page(county: County): void {
                         const land_area_string: string = line.split(' ')[2];
                         const land_area: number = parseInt(land_area_string);
                         console.log('land_area = ' + land_area);
+                    } else if (line.startsWith('Population density:')) {
+                        const pop_density_string: string = line.split(' ')[2];
+                        const pop_density: number = parseInt(pop_density_string);
+                        console.log(`pop_density = ${pop_density}`);
                     }
                 }
 
