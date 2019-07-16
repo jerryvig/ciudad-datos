@@ -69,7 +69,7 @@ function get_county_page(county: County): void {
 
 function main(args?: string[]): void {
     if (args === undefined || args.length < 3) {
-        fs.readFile(COUNTY_FILE_PATH, (err, buffer: Buffer | string) => {
+        fs.readFile(COUNTY_FILE_PATH, (err: NodeJS.ErrnoException | null, buffer: Buffer | string) => {
             if (err) {
                 console.error(err);
                 return;
