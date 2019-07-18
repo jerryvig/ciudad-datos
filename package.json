@@ -10,6 +10,9 @@
   "dependencies": {
     "@types/cheerio": "^0.22.12",
     "@types/node": "^12.6.2",
-    "cheerio": "^1.0.0-rc.3"
+    "cheerio": "^1.0.0-rc.3",
+    "reflect-metadata": "^0.1.13",
+    "sqlite3": "^4.0.9",
+    "typeorm": "^0.2.18"
   }
 }
